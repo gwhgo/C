@@ -1,0 +1,13 @@
+main.c: In function ‘main’:
+main.c:7:2: error: unknown type name ‘asdfasdfasdfasdfasd’
+  asdfasdfasdfasdfasd
+  ^
+main.c:8:9: error: expected declaration specifiers or ‘...’ before string constant
+  printf("sin(pi/2)=%f\nln1=%f\n",sin(pi/2),log(1.0));
+         ^
+main.c:8:34: error: expected declaration specifiers or ‘...’ before ‘sin’
+  printf("sin(pi/2)=%f\nln1=%f\n",sin(pi/2),log(1.0));
+                                  ^
+main.c:8:44: error: expected declaration specifiers or ‘...’ before ‘log’
+  printf("sin(pi/2)=%f\nln1=%f\n",sin(pi/2),log(1.0));
+                                            ^
