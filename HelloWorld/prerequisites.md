@@ -1,0 +1,6 @@
+- gcc : The GNU C compiler
+- libc6-dev : GNU C Library, Devlopment Libraries and Header Files
+- manpages-dev : Manual pages about using GNU/Linux for development
+- binutils : The GNU assember, linker and binary utilities
+- gdb : The GNU Debugger
+- make : The GNU version of the "make“ utility
