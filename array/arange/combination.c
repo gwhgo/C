@@ -1,44 +1,42 @@
 #include <stdio.h>
-#define N 4
-#define M 2
 
-int a[N];
+void combinationUtil(int arr[], int data[], int start, int end, int index, int r);
 
-void init(int a[])
+// The main function that prints all combinations of size r 
+// // in arr[] of size n. This function mainly uses combinationUtil() 
+void printCombination(int arr[],int n, int r)
 {
-	for(int i = 0; i < N; i++)
-		a[i] = i+1;	
+	int data[r];
+	combinationUtil(arr,data,0,n-1,0,r);
 }
 
-void print(int a[])
+/* arr[] ---> Input Array
+ * data[] ---> Temporary array to store current combinatin
+ * start & end --> Starting and Endind indexes in arr[]
+ * index ---> Current index in data[]
+ * r ---> Size of a combination to be printed */
+void combinationUtil(int arr[], int data[], int start, int end, int index, int r)
 {
-	for(int i = 0; i < M-1;i++)
-		printf("%d-",a[i]);
-	printf("%d\n",a[M-1]);
-}
-/* Function to swap values at two pointers */
-void swap(int* x, int* y) 
-{ 
-	int temp; 
-	temp = *x; 
-	*x = *y; 
-	*y = temp; 
-} 
-
-void comb(int* a,int l, int r, int m)
-{
-	if ( r == M){
-		print(a);	
+	//Current combination is ready to be printed, print it
+	if(index == r)
+	{
+		for(int j = 0; j < r;j++)
+			printf("%d ",data[j]);
+		printf("\n");
 		return;
 	}
-	for(int i = l; i < r;i++)
+	for (int i = start; i <= end && end -i+1 >= index; i++)
 	{
-		comb(a,l+1,r-i,m-1);	
-		swap(a+l,a+r);
-	}	
+		data[index] = arr[i];
+		combinationUtil(arr,data,i+1,end,index+1,r);
+	}
 }
-int main(void)
+
+//Driver program to test above functions
+int main()
 {
-	init(a);
-	comb(a,0,N,M);	
+		int arr[] = {1,2,3,4,5};
+		int r = 3;
+		int n = sizeof(arr)/sizeof(arr[0]);
+		printCombination(arr,n,r);
 }
