@@ -74,6 +74,7 @@ int main(void)
 	push(p);
 	while(!is_empty()){
 		p = pop();
+		print_stack();
 		if (p.row == MAX_ROW -1 /*goal */
 				&& p.col == MAX_COL -1)
 			break;
