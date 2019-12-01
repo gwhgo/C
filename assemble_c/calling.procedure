@@ -1,3 +1,54 @@
-rbp 0x7fffffffe350
+// rsp指向的是最新压栈单元的下一个单元
 
-main()
+int main(void)
+{
+	55			push %rbp  
+	48 89 e5	mov %rsp,%rbp //此时的rbp为0x...350
+
+	foo(2,3);
+	//从左向右传参
+	be 03 00 00 00 mov	$0x3,%esi
+	bf 02 00 00 00 mov	$0x2,%edi
+	e8 ce ff ff ff callq 400507 <foo>
+	//call将下一条指令的地址:400539压栈
+	//call修改程序计数器eip,跳转到foo函数开头执行
+	
+	return 0;
+	b8 00 00 00 00	mov $0x0,%eax
+}
+	pop %rbp
+	retq
+
+
+fun()
+{
+	55			push %rbp // 将main的rbp压栈,值为0x...350
+	48 89 e5 	mov %rsp, %rbp	//将当前的%rsp作为fun函数的rbp,当前rsp指向的是存放350内容的下一个单元,但里面没有任何内容
+	48 83 ec 08	mov $0x08, $rsp //将$rsp寄存器中的值减少8，为了挪出64个字节将传入foo函数的参数放到当前函数栈
+	89 7d 7c	mov %edi, -0x4(%rbp) //将$edi寄存器的值(左边的参数)放到当前栈内 
+	89 75 f8	mov $esi,-0x8(%rbp) //将%esi寄存器的值(右边的参数)放到当前栈内
+	8b 55 f8 	mov -0x8($rbp),$edx //将右边的参数放到%edx寄存器
+	8b 45 fc  	mov -0x4($rbp),%eax //将左边的参数放到%eax寄存器中
+	89 d6 		mov $edx,$esi //不懂这两步移动有什么意义
+	89 c7 		mov $eax,$edi
+	e8 c9 ff ff ff 	callq 4004ed <bar> 
+				//将下一条指令的地址0x400524压栈
+				//修改eip(rip)的值，跳转到bar程序开头
+}
+	c9 			leaveq //是push %rbp, mov %rsp %rbp的逆操作
+					   // mov %rbp %rsp
+					   // add 0x8,%rsp   mov 0x0(%rbp),%rbp
+							
+	c3 			retq    //call指令的你操作 
+						// mov 0x0(%rsp),%eip
+						// add 0x8,$rsp
+						
+						
+	
+	
+}
+	
+
+
+	
+			
