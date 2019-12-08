@@ -6,7 +6,7 @@ int main(void)
 	48 89 e5	mov %rsp,%rbp //此时的rbp为0x...350
 
 	foo(2,3);
-	//从左向右传参
+	//从右向左传参
 	be 03 00 00 00 mov	$0x3,%esi
 	bf 02 00 00 00 mov	$0x2,%edi
 	e8 ce ff ff ff callq 400507 <foo>
