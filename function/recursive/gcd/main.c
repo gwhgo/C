@@ -12,10 +12,10 @@ int gcd(int a, int b)
 		b = c;
 	}
 	/* a > b */	
-	c = a / b;
 	int d = a % b;
 	if (d == 0) return b;
 	else {
+		c = a / b;
 		return gcd(b,d);	
 	}
 	

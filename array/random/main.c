@@ -2,7 +2,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
-#define N 20
+#define N 100
 
 
 int a[N];
